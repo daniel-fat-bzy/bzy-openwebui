@@ -8,7 +8,7 @@
 
 @font-face {
 	font-family: 'Archivo';
-	src: url('/assets/fonts/Archivo-Variable.ttf');
+	src: url('/assets/fonts/ABCDiatype-Regular.woff');
 	font-display: swap;
 }
 
@@ -23,6 +23,21 @@
 	src: url('/assets/fonts/InstrumentSerif-Regular.ttf');
 	font-display: swap;
 }
+
+@font-face {
+    font-family: 'Tiempos Headline Medium';
+    src: url('/assets/fonts/tiempos-headline-medium.woff2');
+    font-display: swap;
+}
+
+.font-headline {
+    font-family: 'Tiempos Headline Medium', serif;
+}
+
+.bzy-pink {
+    color: rgb(220 25 155/var(--tw-text-opacity));
+}
+
 
 html {
 	word-break: break-word;

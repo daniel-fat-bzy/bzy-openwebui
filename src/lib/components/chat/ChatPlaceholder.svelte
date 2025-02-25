@@ -81,11 +81,11 @@
 			class=" mt-2 mb-4 text-3xl text-gray-800 dark:text-gray-100 font-medium text-left flex items-center gap-4 font-primary"
 		>
 			<div>
-				<div class=" capitalize line-clamp-1" in:fade={{ duration: 200 }}>
+				<div class=" capitalize line-clamp-1 font-headline bzy-pink" in:fade={{ duration: 200 }}>
 					{#if models[selectedModelIdx]?.name}
 						{models[selectedModelIdx]?.name}
 					{:else}
-						{$i18n.t('Hello, {{name}}', { name: $user.name })}
+						{$i18n.t('Hi, {{name}}', { name: $user.name })}
 					{/if}
 				</div>
 
@@ -116,7 +116,7 @@
 						{/if}
 					{:else}
 						<div class=" font-medium text-gray-400 dark:text-gray-500 line-clamp-1 font-p">
-							{$i18n.t('How can I help you today?')}
+							{$i18n.t('How can I help?')}
 						</div>
 					{/if}
 				</div>
