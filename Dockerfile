@@ -30,6 +30,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
+ENV NODE_OPTIONS="--max_old_space_size=4096"
 ENV APP_BUILD_HASH=${BUILD_HASH}
 RUN npm run build
 
