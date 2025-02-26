@@ -1195,7 +1195,7 @@
 										</div>
 									</div>
 
-									<div class="self-end flex space-x-1 mr-1 shrink-0">
+									<!-- <div class="self-end flex space-x-1 mr-1 shrink-0">
 										{#if !history?.currentId || history.messages[history.currentId]?.done == true}
 											<Tooltip content={$i18n.t('Record voice')}>
 												<button
@@ -1364,7 +1364,10 @@
 												</Tooltip>
 											</div>
 										{/if}
-									</div>
+									</div> -->
+
+
+
 								</div>
 							</div>
 						</form>
