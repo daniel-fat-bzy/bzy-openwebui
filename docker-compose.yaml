@@ -1,34 +1,29 @@
 services:
-  ollama:
-    volumes:
-      - ollama:/root/.ollama
-    container_name: ollama
-    pull_policy: always
-    tty: true
-    restart: unless-stopped
-    image: ollama/ollama:${OLLAMA_DOCKER_TAG-latest}
-
   open-webui:
     build:
       context: .
-      args:
-        OLLAMA_BASE_URL: '/ollama'
       dockerfile: Dockerfile
-    image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG-main}
-    container_name: open-webui
     volumes:
       - open-webui:/app/backend/data
-    depends_on:
-      - ollama
     ports:
       - ${OPEN_WEBUI_PORT-3000}:8080
     environment:
-      - 'OLLAMA_BASE_URL=http://ollama:11434'
-      - 'WEBUI_SECRET_KEY='
-    extra_hosts:
-      - host.docker.internal:host-gateway
+      DEFAULT_USER_ROLE: pending
+      ENABLE_LOGIN_FORM: true
+      CUSTOM_NAME: Beazley Chat
+      ENABLE_REALTIME_CHAT_SAVE: false
+      ENABLE_CHANNELS: false
+      AIOHTTP_CLIENT_TIMEOUT: 300
+      ENABLE_OLLAMA_API: false
+      ENABLE_AUTOCOMPLETE_GENERATION: false
+      ENABLE_EVALUATION_ARENA_MODELS: false
+      ENABLE_RAG_WEB_SEARCH: false
+      ENABLE_IMAGE_GENERATION: false
+      USER_PERMISSIONS_CHAT_FILE_UPLOAD: true
+      USER_PERMISSIONS_CHAT_DELETE: true
+      USER_PERMISSIONS_CHAT_EDIT: true
+      USER_PERMISSIONS_CHAT_TEMPORARY: true
     restart: unless-stopped
 
 volumes:
-  ollama: {}
   open-webui: {}
