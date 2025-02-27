@@ -553,7 +553,7 @@ async def generate_chat_completion(
     idx = 0
 
     payload = {**form_data}
-    # metadata = payload.pop("metadata", None)
+    metadata = payload.get("metadata", {})
 
     model_id = form_data.get("model")
     model_info = Models.get_model_by_id(model_id)
@@ -647,6 +647,8 @@ async def generate_chat_completion(
             trust_env=True, timeout=aiohttp.ClientTimeout(total=AIOHTTP_CLIENT_TIMEOUT)
         )
 
+
+
         r = await session.request(
             method="POST",
             url=f"{url}/chat/completions",
@@ -654,6 +656,9 @@ async def generate_chat_completion(
             headers={
                 "Authorization": f"Bearer {key}",
                 "Content-Type": "application/json",
+                "langfuse_trace_user_id": f"{user.name} / {user.email}",
+                "langfuse_session_id":  metadata.get("metadata", {}).get("session_id"),
+                "langfuse_trace_metadata": metadata,
                 **(
                     {
                         "HTTP-Referer": "https://openwebui.com/",
@@ -666,7 +671,7 @@ async def generate_chat_completion(
                     {
                         "X-OpenWebUI-User-Name": user.name,
                         "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
+                        "X-OpenWebUI-User-Email": user.name,
                         "X-OpenWebUI-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS
