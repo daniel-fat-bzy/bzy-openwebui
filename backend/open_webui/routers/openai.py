@@ -646,7 +646,12 @@ async def generate_chat_completion(
         session = aiohttp.ClientSession(
             trust_env=True, timeout=aiohttp.ClientTimeout(total=AIOHTTP_CLIENT_TIMEOUT)
         )
-
+        langfuse_headers = {}
+        if metadata:
+            langfuse_headers = {
+                "langfuse_session_id":  metadata.get("metadata", {}).get("session_id"),
+                "langfuse_trace_metadata": metadata
+            }
 
 
         r = await session.request(
@@ -657,8 +662,7 @@ async def generate_chat_completion(
                 "Authorization": f"Bearer {key}",
                 "Content-Type": "application/json",
                 "langfuse_trace_user_id": f"{user.name} / {user.email}",
-                "langfuse_session_id":  metadata.get("metadata", {}).get("session_id"),
-                "langfuse_trace_metadata": metadata,
+                **langfuse_headers,
                 **(
                     {
                         "HTTP-Referer": "https://openwebui.com/",
