@@ -647,11 +647,15 @@ async def generate_chat_completion(
             trust_env=True, timeout=aiohttp.ClientTimeout(total=AIOHTTP_CLIENT_TIMEOUT)
         )
         langfuse_headers = {}
+        
         if metadata:
             langfuse_headers = {
                 "langfuse_session_id":  metadata.get("metadata", {}).get("session_id"),
                 "langfuse_trace_metadata": metadata
             }
+            
+        if user:
+             langfuse_headers["langfuse_trace_user_id"]: f"{user.name} / {user.email}"
 
 
         r = await session.request(
@@ -661,7 +665,6 @@ async def generate_chat_completion(
             headers={
                 "Authorization": f"Bearer {key}",
                 "Content-Type": "application/json",
-                "langfuse_trace_user_id": f"{user.name} / {user.email}",
                 **langfuse_headers,
                 **(
                     {
