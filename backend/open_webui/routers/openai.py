@@ -638,8 +638,13 @@ async def generate_chat_completion(
         payload['metadata'] = metadata.get("metadata")
         
     payload['metadata']['tags'] = payload.get("tags", [])
-        
-    log.info(f"payload: {payload}")
+    
+    if 'custom_metadata' in payload:
+        custom_metadata = payload.pop("custom_metadata")
+        payload['metadata'] = {
+            **payload['metadata'],
+            **custom_metadata
+        }
 
     # Convert the modified body back to JSON
     payload = json.dumps(payload)
@@ -660,8 +665,8 @@ async def generate_chat_completion(
                 # "langfuse_trace_metadata": metadata,
             }
             
-            if metadata.get("metadata", {}).get("session_id"):
-                langfuse_headers['langfuse_session_id'] = metadata.get("metadata", {}).get("session_id")
+            if metadata.get("metadata", {}).get("chat_id"):
+                langfuse_headers['langfuse_session_id'] = metadata.get("metadata", {}).get("chat_id")
             
         if user:
              langfuse_headers["langfuse_trace_user_id"] = f"{user.name} / {user.email}"
