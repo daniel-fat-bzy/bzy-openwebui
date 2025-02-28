@@ -655,7 +655,7 @@ async def generate_chat_completion(
         
         if metadata:
             langfuse_headers = {
-                # "langfuse_trace_metadata": json.dumps(metadata)
+                "langfuse_trace_metadata": metadata,
             }
             
             if  metadata.get("metadata", {}).get("session_id"):
