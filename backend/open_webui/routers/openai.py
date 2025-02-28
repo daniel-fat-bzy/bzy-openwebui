@@ -668,8 +668,8 @@ async def generate_chat_completion(
         #     if metadata.get("metadata", {}).get("chat_id"):
         #         langfuse_headers['langfuse_session_id'] = metadata.get("metadata", {}).get("session_id")
             
-        # if user:
-        #      langfuse_headers["langfuse_trace_user_id"] = f"{user.name} / {user.email}"
+        if user:
+             langfuse_headers["langfuse_trace_user_id"] = f"{user.name} / {user.email}"
 
 
         r = await session.request(
