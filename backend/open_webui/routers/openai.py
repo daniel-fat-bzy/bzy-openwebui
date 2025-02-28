@@ -637,7 +637,7 @@ async def generate_chat_completion(
     if metadata.get("metadata", False):
         payload['metadata'] = metadata.get("metadata")
         
-    log.debug(f"payload: {payload}")
+    log.info(f"payload: {payload}")
 
     # Convert the modified body back to JSON
     payload = json.dumps(payload)
