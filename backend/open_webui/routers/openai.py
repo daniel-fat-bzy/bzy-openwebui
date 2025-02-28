@@ -634,6 +634,9 @@ async def generate_chat_completion(
     if "max_tokens" in payload and "max_completion_tokens" in payload:
         del payload["max_tokens"]
 
+    if metadata.get("metadata", False):
+        payload['metadata'] = metadata.get("metadata")
+
     # Convert the modified body back to JSON
     payload = json.dumps(payload)
 
@@ -650,7 +653,7 @@ async def generate_chat_completion(
         
         if metadata:
             langfuse_headers = {
-                "langfuse_trace_metadata": json.dumps(metadata)
+                # "langfuse_trace_metadata": json.dumps(metadata)
             }
             
             if  metadata.get("metadata", {}).get("session_id"):
