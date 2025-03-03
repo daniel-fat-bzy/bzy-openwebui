@@ -35,9 +35,10 @@
 }
 
 .bzy-pink {
-    color: rgb(220 25 155/var(--tw-text-opacity));
+    --tw-text-opacity: 1;
+	--colors-background: 220 25 155;
+	color: rgb(var(--colors-background)/var(--tw-text-opacity,1));
 }
-
 
 html {
 	word-break: break-word;
