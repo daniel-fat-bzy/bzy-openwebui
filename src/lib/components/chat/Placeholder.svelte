@@ -136,11 +136,11 @@
 					</div>
 				</div>
 
-				<div class=" text-3xl @sm:text-4xl line-clamp-1" in:fade={{ duration: 100 }}>
+				<div class=" bzy-pink font-headline text-3xl @sm:text-4xl line-clamp-1" in:fade={{ duration: 100 }}>
 					{#if models[selectedModelIdx]?.name}
 						{models[selectedModelIdx]?.name}
 					{:else}
-						{$i18n.t('Hello, {{name}}', { name: $user.name })}
+						{$i18n.t('Hi, {{name}}', { name: $user.name })}
 					{/if}
 				</div>
 			</div>
@@ -199,7 +199,7 @@
 					{transparentBackground}
 					{stopResponse}
 					{createMessagePair}
-					placeholder={$i18n.t('How can I help you today?')}
+					placeholder={$i18n.t('How can I help?')}
 					on:upload={(e) => {
 						dispatch('upload', e.detail);
 					}}
